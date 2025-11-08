@@ -569,4 +569,24 @@ footer {
     .tab-btn { width: 100%; margin: 0; padding: 12px; }
     .contact-wrapper, .membership-info { flex-direction: column; gap: 30px; }
     .contact-info, .contact-form, .info-box { width: 100%; min-width: auto; }
+    /* MOBİL İLETİŞİM DÜZENLEMESİ */
+    .contact-item {
+        align-items: flex-start; /* İkonları en üstten hizala, ortadan değil */
+    }
+
+    .contact-icon {
+        /* Mobilde ikon kutusunu sabitle ve küçült */
+        width: 40px !important;  
+        height: 40px !important;
+        min-width: 40px; /* Daralmasını engelle */
+        font-size: 1.2rem !important; /* Emojiyi küçült */
+        margin-right: 15px;
+        margin-top: 5px; /* Yazının ilk satırıyla hizalamak için biraz aşağı it */
+    }
+
+    /* E-posta adresi çok uzunsa taşmasın, alt satıra geçsin veya kırılsın */
+    .contact-item p {
+        word-break: break-word; /* Uzun kelimeleri (e-posta gibi) böl */
+        font-size: 1rem; /* Mobilde yazı boyutunu biraz dengele */
+    }
 }
