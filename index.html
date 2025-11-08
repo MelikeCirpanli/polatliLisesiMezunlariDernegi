@@ -264,7 +264,144 @@
             </video>
         </div>
     </div>
-    <script src="static/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. MOBİL MENÜ ---
+            const burger = document.querySelector('.burger');
+            const nav = document.querySelector('.nav-links');
+            const navLinks = document.querySelectorAll('.nav-links li');
+            if (burger) {
+                burger.addEventListener('click', () => {
+                    nav.classList.toggle('nav-active');
+                    burger.classList.toggle('toggle');
+                    navLinks.forEach((link, index) => {
+                        if (link.style.animation) link.style.animation = '';
+                        else link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+                    });
+                });
+            }
+
+            // --- 2. HAKKIMIZDA SEKMELERİ ---
+            const tabs = document.querySelectorAll('.tab-btn');
+            const allContent = document.querySelectorAll('.tab-content');
+            tabs.forEach((tab) => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    allContent.forEach(content => content.classList.remove('active-content'));
+                    document.getElementById(tab.getAttribute('data-target')).classList.add('active-content');
+                });
+            });
+
+            // =========================================
+            // 3. GALERİ SLIDER (GÜNCELLENDİ)
+            // =========================================
+            const slider = document.getElementById('sliderWrapper');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            let isDragging = false; // Tıklama vs Sürükleme ayrımı için
+
+            if (slider && prevBtn && nextBtn) {
+                // --- BUTONLA KAYDIRMA (Masaüstü & Mobil) ---
+                // scrollBy daha akıcı ve garantili çalışır
+                nextBtn.addEventListener('click', () => {
+                    slider.scrollBy({ left: 320, behavior: 'smooth' });
+                });
+                prevBtn.addEventListener('click', () => {
+                    slider.scrollBy({ left: -320, behavior: 'smooth' });
+                });
+
+                // --- SÜRÜKLE-BIRAK (Masaüstü için) ---
+                let isDown = false;
+                let startX, scrollLeft;
+
+                slider.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    isDragging = false;
+                    slider.style.cursor = 'grabbing';
+                    // Sürüklerken 'smooth' takılma yapar, geçici olarak 'auto' yapıyoruz
+                    slider.style.scrollBehavior = 'auto'; 
+                    startX = e.pageX - slider.offsetLeft;
+                    scrollLeft = slider.scrollLeft;
+                });
+                slider.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    slider.style.cursor = 'grab';
+                    slider.style.scrollBehavior = 'smooth';
+                });
+                slider.addEventListener('mouseup', () => {
+                    isDown = false;
+                    slider.style.cursor = 'grab';
+                    slider.style.scrollBehavior = 'smooth';
+                    // Tıklama mıydı sürükleme miydi anlamak için küçük bir gecikme
+                    setTimeout(() => { isDragging = false; }, 50);
+                });
+                slider.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - slider.offsetLeft;
+                    const walk = (x - startX) * 2; // Hız çarpanı
+                    slider.scrollLeft = scrollLeft - walk;
+                    // Eğer 5px'den fazla hareket ettiyse bu bir sürüklemedir
+                    if(Math.abs(walk) > 5) isDragging = true;
+                });
+            }
+
+            // =========================================
+            // 4. LIGHTBOX (Görsele Tıklayınca Büyütme)
+            // =========================================
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxVideo = document.getElementById('lightboxVideo');
+            const closeLightbox = document.getElementById('closeLightbox');
+
+            document.querySelectorAll('.slide-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    // Eğer sürükleme yapılıyorsa açma, sadece tıklamada aç
+                    if (isDragging) {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    // Lightbox yoksa (HTML'e eklenmemişse) hata vermesin
+                    if (!lightbox) return;
+
+                    const img = item.querySelector('img');
+                    const video = item.querySelector('video');
+
+                    if (img) {
+                        lightboxImg.src = img.src;
+                        lightboxImg.style.display = 'block';
+                        if(lightboxVideo) lightboxVideo.style.display = 'none';
+                        lightbox.classList.add('active');
+                    } else if (video) {
+                        const videoSrc = video.querySelector('source').src;
+                        if(lightboxVideo) {
+                            lightboxVideo.querySelector('source').src = videoSrc;
+                            lightboxVideo.load();
+                            lightboxVideo.style.display = 'block';
+                        }
+                        lightboxImg.style.display = 'none';
+                        lightbox.classList.add('active');
+                    }
+                });
+            });
+
+            // Lightbox Kapatma
+            if (lightbox) {
+                const closeBox = () => {
+                    lightbox.classList.remove('active');
+                    if(lightboxVideo) lightboxVideo.pause();
+                };
+                if(closeLightbox) closeLightbox.addEventListener('click', closeBox);
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) closeBox();
+                });
+            }
+
+        }); // DOMContentLoaded SONU
+    </script>
     
     </body>
 </html>
