@@ -92,21 +92,10 @@ nav {
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
-    /* Eski stilleri sıfırla */
     border: none !important;
     box-shadow: none !important;
     outline: none !important;
     background-color: transparent !important;
-}
-
-.logo h1 {
-    background: linear-gradient(135deg, #d4af37 0%, #f4e6c3 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
 }
 
 .nav-links {
@@ -185,7 +174,7 @@ nav {
     background: #d35400;
 }
 
-/* --- HAKKIMIZDA (TAB YAPISI) --- */
+/* --- HAKKIMIZDA --- */
 .about-tabs {
     display: flex;
     justify-content: center;
@@ -246,14 +235,6 @@ nav {
     margin-bottom: 5px;
 }
 
-.tuzuk-scroll {
-    max-height: 300px;
-    overflow-y: auto;
-    background: #f9f9f9;
-    padding: 15px;
-    border: 1px solid #eee;
-}
-
 /* --- ETKİNLİKLER --- */
 #etkinlikler {
     background-color: var(--white);
@@ -299,7 +280,7 @@ nav {
     color: var(--primary-color);
 }
 
-/* --- GALERİ SLIDER STYLES (MASAÜSTÜ İÇİN DEFAULT) --- */
+/* --- GALERİ SLIDER STYLES --- */
 #galeri {
     background-color: var(--light-bg);
     overflow: hidden;
@@ -318,11 +299,11 @@ nav {
     overflow-x: auto;
     scroll-behavior: smooth;
     padding: 20px 5px;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 .slider-wrapper::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+    display: none;
 }
 
 .slide-item {
@@ -334,14 +315,14 @@ nav {
     box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     transition: transform 0.3s ease;
     position: relative;
+    cursor: pointer; /* Tıklanabilir olduğunu göster */
 }
 
 .slide-item:hover {
     transform: translateY(-10px);
 }
 
-.slide-item img, 
-.slide-item video {
+.slide-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -470,6 +451,57 @@ footer {
     padding: 20px 0;
 }
 
+/* --- LIGHTBOX (BÜYÜTME EFEKTİ) --- */
+#lightbox {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#lightbox.active {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90%;
+    position: relative;
+}
+
+.lightbox-content img {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    display: none; /* JS ile açılacak */
+}
+
+#closeLightbox {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001;
+    transition: color 0.3s;
+}
+
+#closeLightbox:hover {
+    color: var(--secondary-color);
+}
+
 /* =========================================
    RESPONSIVE (MOBİL UYUMLULUK)
 ========================================= */
@@ -479,7 +511,7 @@ footer {
     body { overflow-x: hidden; }
     .container { width: 95%; }
     section { padding: 50px 0; }
-    img, iframe, video, object { max-width: 100% !important; height: auto !important; }
+    img, iframe, object { max-width: 100% !important; height: auto !important; }
     .pdf-container, .pdf-container iframe { height: 400px !important; }
 
     /* MOBİL NAVİGASYON */
@@ -511,74 +543,19 @@ footer {
     }
 
     /* LOGO & BAŞLIKLAR */
-    .logo { font-size: 1.4rem; } /* Mobilde logo biraz daha küçük */
-    .logo img { width: 45px; height: 45px; } /* Logo resmi de küçülsün */
-    .hero-content h1 { font-size: 1.2rem; } /* Ana başlık mobilde okunabilir olsun */
+    .logo { font-size: 1.4rem; }
+    .logo img { width: 45px; height: 45px; }
+    .hero-content h1 { font-size: 2.2rem; } /* DÜZELTİLDİ: 1.2rem'den 2.2rem'e çıkarıldı */
     .section-title { font-size: 2rem; margin-bottom: 30px; }
 
     /* MOBİL SLIDER */
     .slide-item { width: 250px; height: 350px; }
     .slider-container { padding: 0 10px; }
+    /* Okları mobilde gizlemiyoruz artık, kalsınlar */
 
     /* MOBİL İÇERİK DÜZENİ */
     .about-tabs { flex-direction: column; gap: 10px; }
     .tab-btn { width: 100%; margin: 0; padding: 12px; }
     .contact-wrapper, .membership-info { flex-direction: column; gap: 30px; }
     .contact-info, .contact-form, .info-box { width: 100%; min-width: auto; }
-}
-/* --- LIGHTBOX (BÜYÜTME EFEKTİ) STİLLERİ --- */
-#lightbox {
-    display: none; /* Varsayılan olarak gizli */
-    position: fixed;
-    z-index: 2000; /* Her şeyin üstünde olsun */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9); /* Arka planı karart */
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-#lightbox.active {
-    display: flex; /* Aktif olunca göster */
-    opacity: 1;
-}
-
-.lightbox-content {
-    max-width: 90%;
-    max-height: 90%;
-    position: relative;
-}
-
-.lightbox-content img,
-.lightbox-content video {
-    max-width: 100%;
-    max-height: 90vh;
-    border-radius: 5px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.1);
-    display: none; /* İçerikleri başta gizle, JS ile açacağız */
-}
-
-#closeLightbox {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    color: #fff;
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 2001;
-    transition: color 0.3s;
-}
-
-#closeLightbox:hover {
-    color: var(--secondary-color);
-}
-
-/* Slider öğelerinin tıklanabilir olduğunu göster */
-.slide-item {
-    cursor: pointer;
 }

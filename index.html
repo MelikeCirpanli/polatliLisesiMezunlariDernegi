@@ -189,11 +189,6 @@
                         <img src="static/images/galeri/foto2.jpg" alt="Galeri 2" draggable="false">
                     </div>
                     <div class="slide-item">
-                         <video controls draggable="false">
-                            <source src="static/images/galeri/video1.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="slide-item">
                         <img src="static/images/galeri/foto3.jpg" alt="Galeri 3" draggable="false">
                     </div>
                      <div class="slide-item">
@@ -255,15 +250,14 @@
             <p>&copy; 2025 Polatlı Lisesi Mezunları Derneği. Tüm hakları saklıdır.</p>
         </div>
     </footer>
+    
     <div id="lightbox">
         <span id="closeLightbox">&times;</span>
         <div class="lightbox-content">
             <img id="lightboxImg" src="" alt="Büyütülmüş Görsel">
-            <video id="lightboxVideo" controls>
-                <source src="" type="video/mp4">
-            </video>
         </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -295,16 +289,15 @@
             });
 
             // =========================================
-            // 3. GALERİ SLIDER (GÜNCELLENDİ)
+            // 3. GALERİ SLIDER (VİDEO HARİÇ)
             // =========================================
             const slider = document.getElementById('sliderWrapper');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
-            let isDragging = false; // Tıklama vs Sürükleme ayrımı için
+            let isDragging = false; 
 
             if (slider && prevBtn && nextBtn) {
-                // --- BUTONLA KAYDIRMA (Masaüstü & Mobil) ---
-                // scrollBy daha akıcı ve garantili çalışır
+                // --- BUTONLA KAYDIRMA ---
                 nextBtn.addEventListener('click', () => {
                     slider.scrollBy({ left: 320, behavior: 'smooth' });
                 });
@@ -312,7 +305,7 @@
                     slider.scrollBy({ left: -320, behavior: 'smooth' });
                 });
 
-                // --- SÜRÜKLE-BIRAK (Masaüstü için) ---
+                // --- SÜRÜKLE-BIRAK ---
                 let isDown = false;
                 let startX, scrollLeft;
 
@@ -320,7 +313,6 @@
                     isDown = true;
                     isDragging = false;
                     slider.style.cursor = 'grabbing';
-                    // Sürüklerken 'smooth' takılma yapar, geçici olarak 'auto' yapıyoruz
                     slider.style.scrollBehavior = 'auto'; 
                     startX = e.pageX - slider.offsetLeft;
                     scrollLeft = slider.scrollLeft;
@@ -334,71 +326,71 @@
                     isDown = false;
                     slider.style.cursor = 'grab';
                     slider.style.scrollBehavior = 'smooth';
-                    // Tıklama mıydı sürükleme miydi anlamak için küçük bir gecikme
                     setTimeout(() => { isDragging = false; }, 50);
                 });
                 slider.addEventListener('mousemove', (e) => {
                     if (!isDown) return;
                     e.preventDefault();
                     const x = e.pageX - slider.offsetLeft;
-                    const walk = (x - startX) * 2; // Hız çarpanı
+                    const walk = (x - startX) * 2;
                     slider.scrollLeft = scrollLeft - walk;
-                    // Eğer 5px'den fazla hareket ettiyse bu bir sürüklemedir
                     if(Math.abs(walk) > 5) isDragging = true;
                 });
             }
 
             // =========================================
-            // 4. LIGHTBOX (Görsele Tıklayınca Büyütme)
+            // 4. LIGHTBOX (SADECE FOTOĞRAF)
             // =========================================
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
-            const lightboxVideo = document.getElementById('lightboxVideo');
             const closeLightbox = document.getElementById('closeLightbox');
 
             document.querySelectorAll('.slide-item').forEach(item => {
                 item.addEventListener('click', (e) => {
-                    // Eğer sürükleme yapılıyorsa açma, sadece tıklamada aç
                     if (isDragging) {
                         e.preventDefault();
                         return;
                     }
-                    
-                    // Lightbox yoksa (HTML'e eklenmemişse) hata vermesin
                     if (!lightbox) return;
 
                     const img = item.querySelector('img');
-                    const video = item.querySelector('video');
-
                     if (img) {
                         lightboxImg.src = img.src;
                         lightboxImg.style.display = 'block';
-                        if(lightboxVideo) lightboxVideo.style.display = 'none';
-                        lightbox.classList.add('active');
-                    } else if (video) {
-                        const videoSrc = video.querySelector('source').src;
-                        if(lightboxVideo) {
-                            lightboxVideo.querySelector('source').src = videoSrc;
-                            lightboxVideo.load();
-                            lightboxVideo.style.display = 'block';
-                        }
-                        lightboxImg.style.display = 'none';
                         lightbox.classList.add('active');
                     }
                 });
             });
 
-            // Lightbox Kapatma
             if (lightbox) {
                 const closeBox = () => {
                     lightbox.classList.remove('active');
-                    if(lightboxVideo) lightboxVideo.pause();
                 };
                 if(closeLightbox) closeLightbox.addEventListener('click', closeBox);
                 lightbox.addEventListener('click', (e) => {
                     if (e.target === lightbox) closeBox();
                 });
             }
+
+            // --- 5. SMOOTH SCROLL ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                        // Mobilde menüyü kapat
+                        document.querySelector('.nav-links').classList.remove('nav-active');
+                        if(document.querySelector('.burger')) {
+                            document.querySelector('.burger').classList.remove('toggle');
+                        }
+                         // Link animasyonlarını sıfırla
+                         document.querySelectorAll('.nav-links li').forEach((link) => {
+                             link.style.animation = '';
+                        });
+                    }
+                });
+            });
 
         }); // DOMContentLoaded SONU
     </script>
