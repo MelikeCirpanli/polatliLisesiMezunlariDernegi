@@ -590,3 +590,36 @@ footer {
         font-size: 0.6rem; /* Mobilde yazı boyutunu biraz dengele */
     }
 }
+/* LIGHTBOX GEZİNME BUTONLARI */
+.lb-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 20px;
+    cursor: pointer;
+    z-index: 2002;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+
+.lb-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: var(--secondary-color);
+}
+
+#lbPrev { left: 20px; }
+#lbNext { right: 20px; }
+
+/* Mobilde butonlar biraz daha küçük ve kenara yakın olsun */
+@media screen and (max-width: 768px) {
+    .lb-btn {
+        padding: 10px 15px;
+        font-size: 1.5rem;
+    }
+    #lbPrev { left: 5px; }
+    #lbNext { right: 5px; }
+}
