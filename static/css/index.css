@@ -543,13 +543,24 @@ footer {
     }
 
     /* LOGO & BAŞLIKLAR */
-    .logo { font-size: 1.4rem; }
-    .logo img { width: 45px; height: 45px; }
+    /* Mobilde logo yazısını tek satıra sığacak kadar küçült */
+.logo { 
+    font-size: 1.1rem; /* Daha küçük bir boyut */
+    gap: 8px; /* Resim ile yazı arasındaki boşluğu azalt */
+}
+.logo img {
+    width: 35px; /* Logo resmini de biraz küçültelim */
+    height: 35px;
+}
     .hero-content h1 { font-size: 2.2rem; } /* DÜZELTİLDİ: 1.2rem'den 2.2rem'e çıkarıldı */
     .section-title { font-size: 2rem; margin-bottom: 30px; }
 
     /* MOBİL SLIDER */
-    .slide-item { width: 250px; height: 350px; }
+    /* Mobilde daha yatay ve kısa kartlar */
+    .slide-item { 
+    width: 300px;   /* Biraz daha geniş */
+    height: 220px;  /* Yüksekliği ciddi oranda azalttık */
+}
     .slider-container { padding: 0 10px; }
     /* Okları mobilde gizlemiyoruz artık, kalsınlar */
 
