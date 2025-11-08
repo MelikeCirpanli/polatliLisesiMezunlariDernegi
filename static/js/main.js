@@ -125,4 +125,50 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+// --- 6. İLETİŞİM FORMU (AJAX GÖNDERİMİ) ---
+    const contactForm = document.getElementById("contact-form");
+    const formStatus = document.getElementById("my-form-status");
+
+    if (contactForm) {
+        contactForm.addEventListener("submit", async (e) => {
+            e.preventDefault(); // Sayfanın yenilenmesini engelle
+            const data = new FormData(contactForm);
+            
+            // Butonu pasif yap (çift gönderimi önle)
+            const submitBtn = contactForm.querySelector('.btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = "Gönderiliyor...";
+            formStatus.innerHTML = ""; // Önceki mesajları temizle
+
+            fetch(contactForm.action, {
+                method: contactForm.method,
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    formStatus.innerHTML = "✅ Mesajınız başarıyla gönderildi! Teşekkürler.";
+                    formStatus.style.color = "green";
+                    contactForm.reset(); // Form kutularını temizle
+                } else {
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            formStatus.innerHTML = "❌ " + data["errors"].map(error => error["message"]).join(", ");
+                        } else {
+                            formStatus.innerHTML = "❌ Oops! Gönderimde bir hata oluştu.";
+                        }
+                        formStatus.style.color = "red";
+                    });
+                }
+            }).catch(error => {
+                formStatus.innerHTML = "❌ Oops! Sunucu hatası oluştu.";
+                formStatus.style.color = "red";
+            }).finally(() => {
+                // İşlem bitince butonu eski haline getir
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = "Gönder";
+                // 5 saniye sonra başarı mesajını sil (isteğe bağlı)
+                setTimeout(() => { formStatus.innerHTML = ""; }, 5000);
+            });
+        });
+    }
 }); // DOMContentLoaded SONU

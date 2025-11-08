@@ -620,3 +620,10 @@ footer {
     #lbPrev { left: 5px; }
     #lbNext { right: 5px; }
 }
+/* İletişim Formu Durum Mesajı */
+#my-form-status {
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: center;
+    min-height: 25px; /* Mesaj yokken zıplama yapmasın */
+}
