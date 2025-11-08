@@ -559,7 +559,7 @@ footer {
     /* Mobilde daha yatay ve kısa kartlar */
     .slide-item { 
     width: 300px;   /* Biraz daha geniş */
-    height: 210px;  /* Yüksekliği ciddi oranda azalttık */
+    height: 200px;  /* Yüksekliği ciddi oranda azalttık */
 }
     .slider-container { padding: 0 10px; }
     /* Okları mobilde gizlemiyoruz artık, kalsınlar */
