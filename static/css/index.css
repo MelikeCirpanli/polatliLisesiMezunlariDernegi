@@ -587,6 +587,6 @@ footer {
     /* E-posta adresi çok uzunsa taşmasın, alt satıra geçsin veya kırılsın */
     .contact-item p {
         word-break: break-word; /* Uzun kelimeleri (e-posta gibi) böl */
-        font-size: 1rem; /* Mobilde yazı boyutunu biraz dengele */
+        font-size: 0.8rem; /* Mobilde yazı boyutunu biraz dengele */
     }
 }
