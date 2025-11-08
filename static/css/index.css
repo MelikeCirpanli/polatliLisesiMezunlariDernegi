@@ -546,3 +546,41 @@
         min-width: auto;
     }
 }
+/* --- GALERİ SECTION STYLES --- */
+#galeri {
+    background-color: var(--light-bg); /* Hafif gri arka plan */
+}
+
+.gallery-grid {
+    display: grid;
+    /* Otomatik sığan sütunlar: En az 250px genişliğinde olacaklar */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px; /* Görseller arası boşluk */
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden; /* Taşan kısımları gizle */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    height: 250px; /* Tüm kutular aynı yükseklikte olsun */
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Resmi kutuya doldur, taşarsa kırp */
+    transition: transform 0.5s ease;
+}
+
+.gallery-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Videoyu kutuya doldur */
+    background: #000; /* Video yüklenirken siyah görünsün */
+}
+
+/* Fotoğrafların üzerine gelince büyüme efekti */
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
