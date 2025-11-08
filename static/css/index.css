@@ -546,41 +546,94 @@
         min-width: auto;
     }
 }
-/* --- GALERİ SECTION STYLES --- */
+/* --- KAYDIRMALI GALERİ STYLES --- */
 #galeri {
-    background-color: var(--light-bg); /* Hafif gri arka plan */
+    background-color: var(--light-bg);
+    overflow: hidden; /* Taşmaları gizle */
 }
 
-.gallery-grid {
-    display: grid;
-    /* Otomatik sığan sütunlar: En az 250px genişliğinde olacaklar */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px; /* Görseller arası boşluk */
-}
-
-.gallery-item {
+.slider-container {
     position: relative;
-    overflow: hidden; /* Taşan kısımları gizle */
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    height: 250px; /* Tüm kutular aynı yükseklikte olsun */
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 50px; /* Butonlar için yanlardan boşluk */
 }
 
-.gallery-item img {
+.slider-wrapper {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;     /* Yatay kaydırmaya izin ver */
+    scroll-behavior: smooth; /* Yumuşak kaydırma */
+    padding: 20px 5px;    /* Gölgelerin kesilmemesi için iç boşluk */
+    
+    /* Scroll barı gizleme (Modern tarayıcılar için) */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+/* Chrome, Safari ve Opera için scroll barı gizle */
+.slider-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.slide-item {
+    flex: 0 0 auto; /* Öğelerin küçülmesini engelle */
+    width: 300px;   /* Her bir görselin genişliği */
+    height: 400px;  /* Her bir görselin yüksekliği (Dikey/Story formatı için ideal) */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+/* Mobilde biraz daha küçük olsun */
+@media (max-width: 768px) {
+    .slide-item {
+        width: 250px;
+        height: 350px;
+    }
+    .slider-container {
+        padding: 0 10px; /* Mobilde butonlar yerine parmak kullanılacağı için boşluğu azalt */
+    }
+    .slider-btn {
+        display: none !important; /* Mobilde butonları gizle, parmakla daha rahat */
+    }
+}
+
+.slide-item:hover {
+    transform: translateY(-10px); /* Üzerine gelince yukarı kalksın */
+}
+
+.slide-item img, 
+.slide-item video {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Resmi kutuya doldur, taşarsa kırp */
-    transition: transform 0.5s ease;
+    object-fit: cover; /* Kutuyu doldur */
+    user-select: none; /* Sürüklerken mavi seçimi engelle */
 }
 
-.gallery-item video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Videoyu kutuya doldur */
-    background: #000; /* Video yüklenirken siyah görünsün */
+/* İleri/Geri Butonları */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+    transition: opacity 0.3s;
 }
-
-/* Fotoğrafların üzerine gelince büyüme efekti */
-.gallery-item:hover img {
-    transform: scale(1.1);
+.slider-btn:hover {
+    opacity: 1;
 }
+.prev-btn { left: 0; }
+.next-btn { right: 0; }
