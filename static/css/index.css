@@ -350,6 +350,7 @@
             flex: 1;
             min-width: 250px;
         }
+        
 
         /* --- İLETİŞİM --- */
         #iletisim {
@@ -525,69 +526,6 @@
         margin: 0;
         padding: 12px;
     }
-
-    /* İletişim Bilgileri */
-    .contact-wrapper {
-        flex-direction: column; /* Alt alta diz */
-        gap: 40px;
-    }
-    .contact-info, .contact-form {
-        width: 100%;
-        min-width: auto; /* Min-width sınırlamasını kaldır */
-    }
-
-    /* Üyelik Formu ve Bilgiler */
-    .membership-info {
-        flex-direction: column;
-        gap: 20px;
-    }
-    .info-box {
-        width: 100%;
-        min-width: auto;
-    }
-}
-/* --- KAYDIRMALI GALERİ STYLES --- */
-#galeri {
-    background-color: var(--light-bg);
-    overflow: hidden; /* Taşmaları gizle */
-}
-
-.slider-container {
-    position: relative;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 50px; /* Butonlar için yanlardan boşluk */
-}
-
-.slider-wrapper {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;     /* Yatay kaydırmaya izin ver */
-    scroll-behavior: smooth; /* Yumuşak kaydırma */
-    padding: 20px 5px;    /* Gölgelerin kesilmemesi için iç boşluk */
-    
-    /* Scroll barı gizleme (Modern tarayıcılar için) */
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-/* Chrome, Safari ve Opera için scroll barı gizle */
-.slider-wrapper::-webkit-scrollbar {
-    display: none;
-}
-
-.slide-item {
-    flex: 0 0 auto; /* Öğelerin küçülmesini engelle */
-    width: 300px;   /* Her bir görselin genişliği */
-    height: 400px;  /* Her bir görselin yüksekliği (Dikey/Story formatı için ideal) */
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    transition: transform 0.3s ease;
-    position: relative;
-}
-
-/* Mobilde biraz daha küçük olsun */
-@media (max-width: 768px) {
     .slide-item {
         width: 250px;
         height: 350px;
@@ -637,3 +575,24 @@
 }
 .prev-btn { left: 0; }
 .next-btn { right: 0; }
+
+    /* İletişim Bilgileri */
+    .contact-wrapper {
+        flex-direction: column; /* Alt alta diz */
+        gap: 40px;
+    }
+    .contact-info, .contact-form {
+        width: 100%;
+        min-width: auto; /* Min-width sınırlamasını kaldır */
+    }
+
+    /* Üyelik Formu ve Bilgiler */
+    .membership-info {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .info-box {
+        width: 100%;
+        min-width: auto;
+    }
+}
