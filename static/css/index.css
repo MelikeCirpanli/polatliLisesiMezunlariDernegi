@@ -549,8 +549,8 @@ footer {
     gap: 8px; /* Resim ile yazı arasındaki boşluğu azalt */
 }
 .logo img {
-    width: 35px; /* Logo resmini de biraz küçültelim */
-    height: 35px;
+    width: 40px; /* Logo resmini de biraz küçültelim */
+    height: 40px;
 }
     .hero-content h1 { font-size: 2.2rem; } /* DÜZELTİLDİ: 1.2rem'den 2.2rem'e çıkarıldı */
     .section-title { font-size: 2rem; margin-bottom: 30px; }
