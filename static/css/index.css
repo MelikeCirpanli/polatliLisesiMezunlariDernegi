@@ -513,13 +513,12 @@ footer {
     /* LOGO & BAŞLIKLAR */
     .logo { font-size: 1.4rem; } /* Mobilde logo biraz daha küçük */
     .logo img { width: 45px; height: 45px; } /* Logo resmi de küçülsün */
-    .hero-content h1 { font-size: 2.2rem; } /* Ana başlık mobilde okunabilir olsun */
+    .hero-content h1 { font-size: 1.2rem; } /* Ana başlık mobilde okunabilir olsun */
     .section-title { font-size: 2rem; margin-bottom: 30px; }
 
     /* MOBİL SLIDER */
     .slide-item { width: 250px; height: 350px; }
     .slider-container { padding: 0 10px; }
-    .slider-btn { display: none !important; } /* Mobilde butonları gizle */
 
     /* MOBİL İÇERİK DÜZENİ */
     .about-tabs { flex-direction: column; gap: 10px; }
